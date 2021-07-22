@@ -17,10 +17,11 @@
 package com.pig4cloud.pig.codegen;
 
 import com.pig4cloud.pig.common.datasource.annotation.EnableDynamicDataSource;
-import com.pig4cloud.pig.common.security.annotation.EnablePigFeignClients;
+import com.pig4cloud.pig.common.feign.annotation.EnablePigFeignClients;
 import com.pig4cloud.pig.common.security.annotation.EnablePigResourceServer;
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author lengleng
@@ -28,7 +29,8 @@ import org.springframework.cloud.client.SpringCloudApplication;
  */
 @EnableDynamicDataSource
 @EnablePigFeignClients
-@SpringCloudApplication
+@EnableDiscoveryClient
+@SpringBootApplication
 @EnablePigResourceServer
 public class PigCodeGenApplication {
 

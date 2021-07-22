@@ -16,11 +16,11 @@
 
 package com.alibaba.nacos.controller;
 
-import com.alibaba.nacos.common.model.RestResult;
+import com.alibaba.nacos.auth.annotation.Secured;
+import com.alibaba.nacos.auth.common.ActionTypes;
+import com.alibaba.nacos.common.model.RestResultUtils;
 import com.alibaba.nacos.security.nacos.NacosAuthConfig;
 import com.alibaba.nacos.security.nacos.roles.NacosRoleServiceImpl;
-import com.alibaba.nacos.core.auth.ActionTypes;
-import com.alibaba.nacos.core.auth.Secured;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Role operation controller.
@@ -58,6 +60,17 @@ public class RoleController {
 	}
 
 	/**
+	 * Fuzzy matching role name .
+	 * @param role role id
+	 * @return role list
+	 */
+	@GetMapping("/search")
+	@Secured(resource = NacosAuthConfig.CONSOLE_RESOURCE_NAME_PREFIX + "roles", action = ActionTypes.READ)
+	public List<String> searchRoles(@RequestParam String role) {
+		return roleService.findRolesLikeRoleName(role);
+	}
+
+	/**
 	 * Add a role to a user
 	 *
 	 * <p>
@@ -71,7 +84,7 @@ public class RoleController {
 	@Secured(resource = NacosAuthConfig.CONSOLE_RESOURCE_NAME_PREFIX + "roles", action = ActionTypes.WRITE)
 	public Object addRole(@RequestParam String role, @RequestParam String username) {
 		roleService.addRole(role, username);
-		return new RestResult<>(200, "add role ok!");
+		return RestResultUtils.success("add role ok!");
 	}
 
 	/**
@@ -90,7 +103,7 @@ public class RoleController {
 		else {
 			roleService.deleteRole(role, username);
 		}
-		return new RestResult<>(200, "delete role of user " + username + " ok!");
+		return RestResultUtils.success("delete role of user " + username + " ok!");
 	}
 
 }

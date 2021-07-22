@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  * @author lishangbu
  * @date 2019/2/1
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	private final String adminContextPath;
@@ -51,6 +51,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.and().authorizeRequests()
 			.antMatchers(adminContextPath + "/assets/**"
 				, adminContextPath + "/login"
+				, adminContextPath + "/instances/**"
 				, adminContextPath + "/actuator/**"
 			).permitAll()
 			.anyRequest().authenticated()

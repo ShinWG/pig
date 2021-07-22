@@ -16,11 +16,9 @@
 
 package com.pig4cloud.pig.admin.service;
 
+import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pig4cloud.pig.admin.api.dto.MenuTree;
 import com.pig4cloud.pig.admin.api.entity.SysMenu;
-import com.pig4cloud.pig.admin.api.vo.MenuVO;
-import com.pig4cloud.pig.common.core.util.R;
 
 import java.util.List;
 import java.util.Set;
@@ -40,14 +38,14 @@ public interface SysMenuService extends IService<SysMenu> {
 	 * @param roleId 角色ID
 	 * @return 菜单列表
 	 */
-	List<MenuVO> findMenuByRoleId(Integer roleId);
+	List<SysMenu> findMenuByRoleId(Integer roleId);
 
 	/**
 	 * 级联删除菜单
 	 * @param id 菜单ID
-	 * @return true成功,false失败
+	 * @return true成功, false失败
 	 */
-	R removeMenuById(Integer id);
+	Boolean removeMenuById(Integer id);
 
 	/**
 	 * 更新菜单信息
@@ -62,7 +60,7 @@ public interface SysMenuService extends IService<SysMenu> {
 	 * @param parentId 父节点ID
 	 * @return
 	 */
-	List<MenuTree> treeMenu(boolean lazy, Integer parentId);
+	List<Tree<Integer>> treeMenu(boolean lazy, Integer parentId);
 
 	/**
 	 * 查询菜单
@@ -70,6 +68,6 @@ public interface SysMenuService extends IService<SysMenu> {
 	 * @param parentId
 	 * @return
 	 */
-	List<MenuTree> filterMenu(Set<MenuVO> menuSet, Integer parentId);
+	List<Tree<Integer>> filterMenu(Set<SysMenu> menuSet, Integer parentId);
 
 }

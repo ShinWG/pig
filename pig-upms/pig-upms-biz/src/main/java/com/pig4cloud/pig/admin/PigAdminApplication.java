@@ -16,11 +16,12 @@
 
 package com.pig4cloud.pig.admin;
 
-import com.pig4cloud.pig.common.security.annotation.EnablePigFeignClients;
+import com.pig4cloud.pig.common.feign.annotation.EnablePigFeignClients;
 import com.pig4cloud.pig.common.security.annotation.EnablePigResourceServer;
 import com.pig4cloud.pig.common.swagger.annotation.EnablePigSwagger2;
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author lengleng
@@ -29,7 +30,8 @@ import org.springframework.cloud.client.SpringCloudApplication;
 @EnablePigSwagger2
 @EnablePigResourceServer
 @EnablePigFeignClients
-@SpringCloudApplication
+@EnableDiscoveryClient
+@SpringBootApplication
 public class PigAdminApplication {
 
 	public static void main(String[] args) {
